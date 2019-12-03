@@ -1,40 +1,29 @@
 // app.js
 
-const players = [
-  {
-    id: 1,
-    name: "Nico",
-    score: 200
-  },
-  {
-    id: 2,
-    name: "Jim",
-    score: 85
-  },
-  {
-    id: 3,
-    name: "Lucian",
-    score: 95
-  },
-  {
-    id: 4,
-    name: "James",
-    score: 80
-  }
-];
 
 // Components are often written as => function expresssions
 // i.e. (see below)
 // function Header() { }...
-const App = (props) => {
+class App extends React.Component {
+  /* always set `state` to an empty object */ 
+  state = {
+    players: [
+      {id: 1, name: "Nico",},
+      {id: 2, name: "Jim",},
+      {id: 3, name: "Lucian",},
+      {id: 4, name: "James",}
+    ]
+  }
+  /* Class based components need `render()` method */
+  render() {
     return (
         <div className="scoreboard">
             <Header 
               title="Scoreboard" 
-              totalPlayers={ props.initialPlayers.length } 
+              totalPlayers={ this.state.players.length } 
             />
             {/* Players list */}
-            { props.initialPlayers.map( player => 
+            { this.state.players.map( player => 
                 // implicit return...
                 <Player 
                  key={player.id.toString()}
@@ -43,7 +32,8 @@ const App = (props) => {
                 />
             )}
         </div>
-    );
+    )
+  }
 }
 
 
@@ -87,17 +77,17 @@ class Counter extends React.Component {
 
   /* custom methods need `bind` to parent-Class */
   incrementScore = () => {
-    this.setState({
-      score: this.state.score + 1
+    this.setState( prevState => {
+      return {
+        score: prevState.score + 1
+      }
     })
-    /* should print out parent Class-instance-object */
-    // console.log(this)
   }
 
   decrementScore = () => {
-    this.setState({
-      score: this.state.score - 1
-    })
+    this.setState( prevState => ({
+        score: prevState.score - 1
+    }))
   }
 
   render() {
@@ -118,7 +108,7 @@ class Counter extends React.Component {
  
  
 ReactDOM.render(
-   <App initialPlayers={players} />,
+   <App />,
    document.getElementById('root')
  );
  
