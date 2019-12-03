@@ -2,18 +2,22 @@
 
 const players = [
   {
+    id: 1,
     name: "Nico",
     score: 200
   },
   {
+    id: 2,
     name: "Jim",
     score: 85
   },
   {
+    id: 3,
     name: "Lucian",
     score: 95
   },
   {
+    id: 4,
     name: "James",
     score: 80
   }
@@ -33,6 +37,7 @@ const App = (props) => {
             { props.initialPlayers.map( player => 
                 // implicit return...
                 <Player 
+                 key={player.id.toString()}
                  name={player.name} 
                  score={player.score}
                 />

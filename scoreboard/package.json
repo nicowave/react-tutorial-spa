@@ -1,0 +1,19 @@
+{
+  "name": "scoreboard",
+  "version": "1.0.0",
+  "description": "scoreboard app from teamtreehouse.com tutorial",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm start"
+  },
+  "keywords": [
+    "react",
+    "component-design",
+    "state",
+    "props"
+  ],
+  "author": "Nicolas Roldos",
+  "license": "ISC"
+}
