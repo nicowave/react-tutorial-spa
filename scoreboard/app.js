@@ -75,19 +75,49 @@ const Player = (props) => {
     );   
 }
 
-const Counter = (props) => {
+class Counter extends React.Component {
+  
+  // constructor() {
+  //   super()
+  state = {
+      /* set initial state */
+      score: 0
+  }
+  // }
+
+  /* custom methods need `bind` to parent-Class */
+  incrementScore = () => {
+    this.setState({
+      score: this.state.score + 1
+    })
+    /* should print out parent Class-instance-object */
+    // console.log(this)
+  }
+
+  decrementScore = () => {
+    this.setState({
+      score: this.state.score - 1
+    })
+  }
+
+  render() {
     return (
       <div className="counter">
         {/* Counter component */}
-        <button className="counter-action decrement"> - </button>
-        <span className="counter-score"> { props.score } </span>
-        <button className="counter-action increment"> + </button>
-     </div>
-  );
+        {/* arrow `=>` functions use a lexical-`this` binding */}
+        {/* <button className="counter-action decrement" onClick={this.decrementScore().bind(this)}> - </button> */}
+        {/* if custom Class-mothod is writeen with `=>` syntax, arrow `=>` lexical NOT needed in call below */}
+        {/* <button className="counter-action decrement" onClick={() => this.decrementScore()}> - </button> */}
+        <button className="counter-action decrement" onClick={ this.decrementScore }> - </button>
+        <span className="counter-score"> { this.state.score } </span>
+        <button className="counter-action increment" onClick={ this.incrementScore }> + </button>
+      </div>
+  )};
 }
 
  
- ReactDOM.render(
+ 
+ReactDOM.render(
    <App initialPlayers={players} />,
    document.getElementById('root')
  );
