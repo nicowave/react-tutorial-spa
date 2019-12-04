@@ -14,6 +14,15 @@ class App extends React.Component {
       {id: 4, name: "James",}
     ]
   }
+
+  handleRemovePlayer = (id) => {
+    this.setState( prevState => {
+      return {
+        players: prevState.players.filter( player => player.id !== id )
+      }
+    })
+  }
+
   /* Class based components need `render()` method */
   render() {
     return (
@@ -28,7 +37,8 @@ class App extends React.Component {
                 <Player 
                  key={player.id.toString()}
                  name={player.name} 
-                 score={player.score}
+                 id={player.id}
+                 removePlayer={this.handleRemovePlayer}
                 />
             )}
         </div>
@@ -52,29 +62,30 @@ const Header = (props) => {
 
 
 const Player = (props) => {
-    return (
-        <div className="player">
-            {/* Player component */}
-            <span className="player-name">
-              { props.name }
-            </span>
-            {/* composition; rendering child component
-             inside parent component*/}
-            <Counter score={ props.score } />
-        </div>
-    );   
+  console.log(props.removePlayer)
+  return (
+    <div className="player">
+        {/* Player component */}
+        <span className="player-name">
+          <button className="remove-player" onClick={ () => props.removePlayer(props.id)}>
+            ✖
+          </button>
+          { props.name }
+        </span>
+        {/* composition; rendering child component
+         inside parent component*/}
+        <Counter score={ props.score } />
+    </div>
+  );   
 }
 
+
 class Counter extends React.Component {
-  
-  // constructor() {
-  //   super()
+  /* set initial state */
   state = {
-      /* set initial state */
       score: 0
   }
-  // }
-
+  
   /* custom methods need `bind` to parent-Class */
   incrementScore = () => {
     this.setState( prevState => {
